@@ -1,11 +1,30 @@
 package com.example.ecommerce_app.ui.theme
 
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+private val LightColors = lightColorScheme(
+background =  Color(0xFF004182)
+)
+
+
+private val DarkColors = darkColorScheme(
+
+)
+
+@Composable
+fun EcommerceAppTheme(
+    darkTheme: Boolean = false,
+    content: @Composable () -> Unit
+) {
+    val colors = if (darkTheme) DarkColors else LightColors
+
+    MaterialTheme(
+        colorScheme = colors,
+        typography = Typography, // إذا لديك Type.kt
+        // إذا لديك Shape.kt
+        content = content
+    )
+}
