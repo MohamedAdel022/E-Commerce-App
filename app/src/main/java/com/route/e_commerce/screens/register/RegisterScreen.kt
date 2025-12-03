@@ -138,7 +138,8 @@ fun ObserveEvents(viewModel: RegisterViewModel, navController: NavHostController
                     navController.popBackStack()
                 }
                 RegisterContract.Event.NavigateToHome -> {
-                    navController.navigate(Routes.Home.route) {
+
+                    navController.navigate(Routes.Main.route) {
                         // Clear the entire back stack up to and including Login
                         popUpTo(0) {
                             inclusive = true

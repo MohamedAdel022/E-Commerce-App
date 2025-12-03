@@ -38,7 +38,7 @@ fun SplashScreen(modifier: Modifier = Modifier, navController: NavHostController
             navController.popBackStack(Routes.Splash.route, true)
             when (direction) {
                 SplashDirections.Login -> navController.navigate(Routes.Login.route)
-                SplashDirections.Home -> navController.navigate(Routes.Home.route)
+                SplashDirections.Home -> navController.navigate(Routes.Main.route)
             }
         }
     }
