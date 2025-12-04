@@ -59,7 +59,7 @@ fun MainNavHost(modifier: Modifier = Modifier, navController: NavHostController)
                 )
             }
         ){
-            HomeScreen()
+            HomeScreen(modifier=modifier)
         }
         composable(
             route = BottomRoutes.Categories.route,
