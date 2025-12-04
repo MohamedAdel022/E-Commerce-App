@@ -52,6 +52,7 @@ dependencies {
     //Dagger Hilt Integration
     implementation(libs.hilt.android)
     implementation(libs.androidx.compose.ui.text)
+    implementation(libs.androidx.compose.foundation)
     ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.core.ktx)

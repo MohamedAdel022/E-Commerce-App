@@ -1,4 +1,4 @@
-package com.route.e_commerce.utils.component
+package com.route.e_commerce.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

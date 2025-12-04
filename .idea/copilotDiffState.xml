@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/route/e_commerce/screens/main/MainScreen.kt">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/app/src/main/java/com/route/e_commerce/screens/main/MainScreen.kt" />
+              <option name="originalContent" value="package com.route.e_commerce.screens.main&#10;&#10;import androidx.compose.foundation.layout.padding&#10;import androidx.compose.material3.Scaffold&#10;import androidx.compose.runtime.Composable&#10;import androidx.compose.ui.Modifier&#10;import androidx.navigation.NavHostController&#10;import androidx.navigation.compose.rememberNavController&#10;import com.route.e_commerce.components.BottomBar&#10;import com.route.e_commerce.components.TopBar&#10;import com.route.e_commerce.navigation.MainNavHost&#10;&#10;&#10;@Composable&#10;fun MainScreen(modifier: Modifier = Modifier, navController: NavHostController) {&#10;    val bottomNavController = rememberNavController()&#10;    Scaffold(&#10;        topBar = { TopBar(value = &quot;&quot;, onValueChange = {}, onCartClick = {}) },&#10;        bottomBar = {&#10;            BottomBar(navController = bottomNavController)&#10;&#10;        }&#10;    ) { innerPadding -&gt;&#10;        MainNavHost(modifier = modifier.padding(innerPadding), navController = bottomNavController)&#10;&#10;    }&#10;&#10;}&#10;" />
+              <option name="updatedContent" value="package com.route.e_commerce.screens.main&#10;&#10;import androidx.compose.foundation.layout.padding&#10;import androidx.compose.material3.Scaffold&#10;import androidx.compose.runtime.Composable&#10;import androidx.compose.runtime.getValue&#10;import androidx.compose.ui.Modifier&#10;import androidx.navigation.NavHostController&#10;import androidx.navigation.compose.currentBackStackEntryAsState&#10;import androidx.navigation.compose.rememberNavController&#10;import com.route.e_commerce.components.BottomBar&#10;import com.route.e_commerce.components.TopBar&#10;import com.route.e_commerce.navigation.BottomRoutes&#10;import com.route.e_commerce.navigation.MainNavHost&#10;&#10;&#10;@Composable&#10;fun MainScreen(modifier: Modifier = Modifier, navController: NavHostController) {&#10;    val bottomNavController = rememberNavController()&#10;    val navBackStackEntry by bottomNavController.currentBackStackEntryAsState()&#10;    val currentRoute = navBackStackEntry?.destination?.route&#10;    val showTopBar = currentRoute != BottomRoutes.Account.route&#10;    &#10;    Scaffold(&#10;        topBar = { &#10;            if (showTopBar) {&#10;                TopBar(value = &quot;&quot;, onValueChange = {}, onCartClick = {})&#10;            }&#10;        },&#10;        bottomBar = {&#10;            BottomBar(navController = bottomNavController)&#10;&#10;        }&#10;    ) { innerPadding -&gt;&#10;        MainNavHost(modifier = modifier.padding(innerPadding), navController = bottomNavController)&#10;&#10;    }&#10;&#10;}&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

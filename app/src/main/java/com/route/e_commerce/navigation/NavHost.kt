@@ -1,5 +1,7 @@
 package com.route.e_commerce.navigation
 
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -8,8 +10,8 @@ import androidx.navigation.compose.composable
 import com.route.e_commerce.screens.account.AccountScreen
 import com.route.e_commerce.screens.categories.CategoriesScreen
 import com.route.e_commerce.screens.home.HomeScreen
-import com.route.e_commerce.screens.main.MainScreen
 import com.route.e_commerce.screens.login.LoginScreen
+import com.route.e_commerce.screens.main.MainScreen
 import com.route.e_commerce.screens.register.RegisterScreen
 import com.route.e_commerce.screens.splash.SplashScreen
 import com.route.e_commerce.screens.wish_list.WishListScreen
@@ -30,7 +32,7 @@ fun AppNavHost(navController: NavHostController,modifier: Modifier) {
 
         }
         composable(Routes.Main.route) {
-            MainScreen( navController=navController)
+            MainScreen( )
 
         }
 
@@ -42,16 +44,72 @@ fun AppNavHost(navController: NavHostController,modifier: Modifier) {
 @Composable
 fun MainNavHost(modifier: Modifier = Modifier, navController: NavHostController) {
     NavHost(navController = navController, startDestination = BottomRoutes.Home.route, modifier = Modifier){
-        composable(BottomRoutes.Home.route){
+        composable(
+            route = BottomRoutes.Home.route,
+            enterTransition = {
+                slideIntoContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                    animationSpec = tween(300)
+                )
+            },
+            exitTransition = {
+                slideOutOfContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                    animationSpec = tween(300)
+                )
+            }
+        ){
             HomeScreen()
         }
-        composable(BottomRoutes.Categories.route){
+        composable(
+            route = BottomRoutes.Categories.route,
+            enterTransition = {
+                slideIntoContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                    animationSpec = tween(300)
+                )
+            },
+            exitTransition = {
+                slideOutOfContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                    animationSpec = tween(300)
+                )
+            }
+        ){
             CategoriesScreen()
         }
-        composable(BottomRoutes.WishList.route){
+        composable(
+            route = BottomRoutes.WishList.route,
+            enterTransition = {
+                slideIntoContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                    animationSpec = tween(300)
+                )
+            },
+            exitTransition = {
+                slideOutOfContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                    animationSpec = tween(300)
+                )
+            }
+        ){
             WishListScreen()
         }
-        composable(BottomRoutes.Account.route){
+        composable(
+            route = BottomRoutes.Account.route,
+            enterTransition = {
+                slideIntoContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                    animationSpec = tween(300)
+                )
+            },
+            exitTransition = {
+                slideOutOfContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                    animationSpec = tween(300)
+                )
+            }
+        ){
             AccountScreen()
         }
 
