@@ -26,7 +26,7 @@ val banners = listOf(
     BannerItemData(
         image = R.drawable.laptop_banner,
         title = "UP TO\n20% OFF",
-        description = "For all Laptops\n" + "Mobiles"
+        description = "For all Laptops\n" + "& Mobiles"
 
     )
 )

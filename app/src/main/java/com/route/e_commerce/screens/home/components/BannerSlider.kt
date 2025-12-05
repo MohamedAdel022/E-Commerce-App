@@ -21,6 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.route.e_commerce.models.banners
+import com.route.e_commerce.ui.theme.White
 
 @Composable
 fun BannerSlider() {
@@ -49,11 +50,11 @@ fun BannerSlider() {
                 Box(
                     Modifier
                         .padding(horizontal = 3.dp)
-                        .size(if (selected) 10.dp else 6.dp)
+                        .size(if (selected) 10.dp else 9.dp)
                         .clip(CircleShape)
                         .background(
                             if (selected) scheme.primary
-                            else Color.LightGray.copy(0.5f)
+                            else White
                         )
                 )
             }
