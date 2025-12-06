@@ -4,12 +4,14 @@ import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.route.e_commerce.screens.account.AccountScreen
 import com.route.e_commerce.screens.categories.CategoriesScreen
 import com.route.e_commerce.screens.home.HomeScreen
+import com.route.e_commerce.screens.home.HomeViewModel
 import com.route.e_commerce.screens.login.LoginScreen
 import com.route.e_commerce.screens.main.MainScreen
 import com.route.e_commerce.screens.register.RegisterScreen
@@ -59,7 +61,8 @@ fun MainNavHost(modifier: Modifier = Modifier, navController: NavHostController)
                 )
             }
         ){
-            HomeScreen(modifier=modifier,navController=navController)
+            val sharedViewModel: HomeViewModel = hiltViewModel(navController.getBackStackEntry(navController.graph.id))
+            HomeScreen(modifier=modifier, viewModel = sharedViewModel, navController=navController)
         }
         composable(
             route = BottomRoutes.Categories.route,
@@ -76,7 +79,8 @@ fun MainNavHost(modifier: Modifier = Modifier, navController: NavHostController)
                 )
             }
         ){
-            CategoriesScreen()
+            val sharedViewModel: HomeViewModel = hiltViewModel(navController.getBackStackEntry(navController.graph.id))
+            CategoriesScreen(modifier = modifier,viewModel = sharedViewModel)
         }
         composable(
             route = BottomRoutes.WishList.route,

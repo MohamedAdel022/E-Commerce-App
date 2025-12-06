@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 fun ProductListShimmer(
     cardHeight: Dp,
     modifier: Modifier = Modifier,
-    shimmerCount: Int = 5
+    shimmerCount: Int = 10
 ) {
     LazyRow(
         modifier = modifier.height(cardHeight)
@@ -27,7 +27,6 @@ fun ProductListShimmer(
                     .aspectRatio(0.8f)
             )
 
-            // Add spacing between cards, but not after the last one
             if (index < shimmerCount - 1) {
                 Spacer(modifier = Modifier.width(12.dp))
             }

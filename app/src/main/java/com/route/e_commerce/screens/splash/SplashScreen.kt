@@ -8,16 +8,20 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.route.e_commerce.R
@@ -53,6 +57,7 @@ fun SplashScreen(modifier: Modifier = Modifier, navController: NavHostController
                 .weight(1f)
                 .fillMaxHeight(.33f)
                 .fillMaxWidth()
+                .clip(RoundedCornerShape(bottomStartPercent = 100, bottomEndPercent = 100)) // Add this to control the shape
                 .background(
                     brush = Brush.verticalGradient(
                         listOf(
@@ -76,6 +81,7 @@ fun SplashScreen(modifier: Modifier = Modifier, navController: NavHostController
                 .weight(1F)
                 .fillMaxHeight(.33f)
                 .fillMaxWidth()
+                .clip(RoundedCornerShape(topStartPercent = 100, topEndPercent = 100)) // Add this to control the shape
                 .background(
                     brush = Brush.verticalGradient(
                         listOf(
@@ -88,4 +94,11 @@ fun SplashScreen(modifier: Modifier = Modifier, navController: NavHostController
 
     }
 
+}
+
+@Preview
+@Composable
+private fun SplashPrev() {
+    SplashScreen( navController = NavHostController(LocalContext.current))
+    
 }
