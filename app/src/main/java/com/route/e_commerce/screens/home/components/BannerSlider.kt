@@ -15,18 +15,29 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.route.e_commerce.models.banners
 import com.route.e_commerce.ui.theme.White
+import kotlinx.coroutines.delay
 
 @Composable
 fun BannerSlider() {
     val scheme = MaterialTheme.colorScheme
     val pagerState = rememberPagerState(pageCount = { banners.size })
+
+    // Auto-scroll effect
+    LaunchedEffect(Unit) {
+        while (true) {
+            delay(3000L) // Wait for 3 seconds
+            val nextPage = (pagerState.currentPage + 1) % banners.size
+            pagerState.animateScrollToPage(nextPage)
+        }
+    }
+
     Box(
         Modifier
             .fillMaxWidth()

@@ -15,9 +15,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.route.e_commerce.screens.home.HomeViewModel
 
 @Composable
-fun CategoriesSection(modifier: Modifier = Modifier) {
+fun CategoriesSection(modifier: Modifier = Modifier,viewModel: HomeViewModel) {
     val scheme = MaterialTheme.colorScheme
     Column(horizontalAlignment = Alignment.Start) {
         Row(
@@ -41,7 +42,7 @@ fun CategoriesSection(modifier: Modifier = Modifier) {
             )
         }
         Spacer(modifier = Modifier.padding(8.dp))
-        CategoryListView()
+        CategoryListView(viewModel = viewModel)
 
     }
 }

@@ -1,5 +1,6 @@
 package com.route.data.dataSource.di
 
+import com.route.data.dataSource.remote.home.HomeRemoteDataSourceImpl
 import com.route.domin.dataSource.home.HomeRemoteDataSource
 import dagger.Binds
 import dagger.Module
@@ -14,7 +15,7 @@ abstract class HomeDataSourceModule {
     @Binds
     @Singleton
     abstract fun bindHomeRemoteDataSource(
-        homeRemoteDataSourceImpl: HomeRemoteDataSource
+        homeRemoteDataSourceImpl: HomeRemoteDataSourceImpl
     ): HomeRemoteDataSource
 
 }
