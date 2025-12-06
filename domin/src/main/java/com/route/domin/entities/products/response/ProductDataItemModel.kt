@@ -3,7 +3,6 @@ package com.route.domin.entities.products.response
 import com.route.domin.entities.common.CategoryDataEntity
 
 data class ProductDataItemEntity(
-    val sold: Int? = null,
     val images: List<String?>? = null,
     val quantity: Int? = null,
     val availableColors: List<Any?>? = null,

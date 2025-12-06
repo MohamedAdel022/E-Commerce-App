@@ -27,7 +27,7 @@ class HomeContract {
     sealed interface Event {
         //navigate to category screen
         data class NavigateToCategory(val category: CategoryDataEntity) : Event
-        data class ShowError(val message: String) : Event
+
     }
 
     sealed interface Intent {

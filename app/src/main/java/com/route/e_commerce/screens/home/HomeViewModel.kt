@@ -33,6 +33,7 @@ class HomeViewModel @Inject constructor(
 
     init {
         handleIntent(HomeContract.Intent.LoadCategories)
+        handleIntent(HomeContract.Intent.LoadProducts())
     }
 
     override fun handleIntent(intent: HomeContract.Intent) {

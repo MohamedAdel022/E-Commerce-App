@@ -41,7 +41,6 @@ fun ProductsResponseModel.toEntity(): ProductsResponseEntity = ProductsResponseE
 )
 
 fun ProductDataItemModel.toEntity(): ProductDataItemEntity = ProductDataItemEntity(
-    sold = sold,
     images = images,
     quantity = quantity,
     availableColors = availableColors,

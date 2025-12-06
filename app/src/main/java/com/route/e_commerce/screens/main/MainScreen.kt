@@ -1,6 +1,7 @@
 package com.route.e_commerce.screens.main
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,8 +21,10 @@ fun MainScreen(modifier: Modifier = Modifier) {
     val navBackStackEntry by bottomNavController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
     val showTopBar = currentRoute != BottomRoutes.Account.route
+    val scheme= MaterialTheme.colorScheme
 
     Scaffold(
+        containerColor = scheme.secondary,
         topBar = {
             if (showTopBar) {
                 TopBar(value = "", onValueChange = {}, onCartClick = {})

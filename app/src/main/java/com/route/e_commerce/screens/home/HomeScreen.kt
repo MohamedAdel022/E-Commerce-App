@@ -3,6 +3,8 @@ package com.route.e_commerce.screens.home
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -14,28 +16,37 @@ import androidx.navigation.NavHostController
 import com.route.e_commerce.navigation.BottomRoutes
 import com.route.e_commerce.screens.home.components.BannerSlider
 import com.route.e_commerce.screens.home.components.CategoriesSection
+import com.route.e_commerce.screens.home.components.ProductsSection
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier,viewModel: HomeViewModel= hiltViewModel(),navController: NavHostController) {
+fun HomeScreen(
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = hiltViewModel(),
+    navController: NavHostController
+) {
     // Observe events for navigation
-    ObserveEvents(viewModel,navController)
+    ObserveEvents(viewModel, navController)
+    val scrollState = rememberScrollState()
 
     Column(
         modifier = modifier.padding(
             horizontal = 16.dp
-        ),
+        ).verticalScroll(scrollState),
         horizontalAlignment = Alignment.Start
     ) {
         BannerSlider()
         Spacer(modifier = Modifier.padding(12.dp))
-        CategoriesSection( viewModel=viewModel)
+        CategoriesSection(viewModel = viewModel)
+        Spacer(modifier = Modifier.padding(12.dp))
+        ProductsSection(viewModel = viewModel)
 
     }
 
 }
 
+
 @Composable
-fun ObserveEvents(viewModel: HomeViewModel,navController: NavHostController) {
+fun ObserveEvents(viewModel: HomeViewModel, navController: NavHostController) {
     LaunchedEffect(Unit) {
         viewModel.events.collect { event ->
             when (event) {
@@ -44,15 +55,11 @@ fun ObserveEvents(viewModel: HomeViewModel,navController: NavHostController) {
                     navController.navigate(BottomRoutes.Categories.route)
 
                 }
-                is HomeContract.Event.ShowError -> {
-                    // TODO: Show error toast or snackbar
-                }
+
             }
         }
     }
 }
-
-
 
 
 @Preview

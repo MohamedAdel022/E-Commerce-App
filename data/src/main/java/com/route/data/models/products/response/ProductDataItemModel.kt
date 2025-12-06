@@ -5,8 +5,6 @@ import com.route.data.models.common.CategoryDataModel
 
 data class ProductDataItemModel(
 
-    @field:SerializedName("sold")
-	val sold: Int? = null,
 
     @field:SerializedName("images")
 	val images: List<String?>? = null,

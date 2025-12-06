@@ -14,6 +14,7 @@ val White = Color(0xFFFFFFFF)
 val Black = Color(0xFF000000)
 val Blue = Color(0xff004182)
 val DarkBlue= Color(0xff06004F)
+val BlueWith30Opacity=Color(0xffA4B7CB)
 val BlueWith60Opacity = Color(0xff6A6695)
 
 val WhiteWith40Opacity = Color(0x66FFFFFF)
