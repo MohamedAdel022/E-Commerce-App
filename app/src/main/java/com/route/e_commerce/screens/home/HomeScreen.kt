@@ -52,7 +52,7 @@ fun ObserveEvents(viewModel: HomeViewModel, navController: NavHostController) {
             when (event) {
                 is HomeContract.Event.NavigateToCategory -> {
                     // TODO: Navigate to category detail screen
-                    navController.navigate(BottomRoutes.Categories.route)
+                    navController.navigate(BottomRoutes.Categories.createRoute(event.category.id))
 
                 }
 

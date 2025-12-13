@@ -20,7 +20,14 @@ sealed class BottomRoutes(val route: String) {
     @Serializable
     object Home : BottomRoutes("home_screen")
     @Serializable
-    object Categories : BottomRoutes("categories_screen")
+    object Categories : BottomRoutes("categories_screen?selectedId={selectedId}") {
+        fun createRoute(selectedId: String? = null): String {
+            return if (selectedId == null)
+                "categories_screen"
+            else
+                "categories_screen?selectedId=$selectedId"
+        }
+    }
     @Serializable
     object WishList : BottomRoutes("wishlist_screen")
     @Serializable

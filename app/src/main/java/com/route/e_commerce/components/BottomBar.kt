@@ -52,7 +52,8 @@ fun BottomBar(modifier: Modifier = Modifier, navController: NavHostController) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             bottomNavItems.forEach { item ->
-                val selected = currentDestination == item.route
+                val selected = currentDestination?.startsWith(item.route.substringBefore("?")) == true
+
                 Box(
                     modifier = Modifier
                         .size(45.dp)
@@ -60,9 +61,11 @@ fun BottomBar(modifier: Modifier = Modifier, navController: NavHostController) {
                         .background(if (selected) Color.White else Color.Transparent)
                         .clickable(
                             onClick = {
-                                navController.navigate(item.route) {
-                                    popUpTo(BottomRoutes.Home.route) { inclusive = false }
-                                    launchSingleTop = true
+                                if (!selected) {
+                                    navController.navigate(item.route) {
+                                        popUpTo(BottomRoutes.Home.route) { inclusive = false }
+                                        launchSingleTop = true
+                                    }
                                 }
                             },
                             indication = null,
@@ -79,7 +82,5 @@ fun BottomBar(modifier: Modifier = Modifier, navController: NavHostController) {
                 }
             }
         }
-
     }
-
 }

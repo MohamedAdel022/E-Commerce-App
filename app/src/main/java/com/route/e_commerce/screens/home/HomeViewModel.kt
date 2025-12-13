@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 class HomeViewModel @Inject constructor(
     private val getCategoriesUseCase: GetCategoriesUseCase,
     private val getProductsUseCase: GetProductsUseCase,
-    private val getSubCategoriesUseCase: GetSubCategoriesUseCase,
+
 
 ) : ViewModel(),HomeContract.ViewModel {
     private val _state: MutableState<HomeContract.UiState> = mutableStateOf(HomeContract.UiState())

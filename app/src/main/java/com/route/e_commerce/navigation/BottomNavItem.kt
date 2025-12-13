@@ -19,7 +19,7 @@ val bottomNavItems = listOf(
     ),
     BottomNavItem(
         label = "Categories",
-        route = BottomRoutes.Categories.route,
+        route = BottomRoutes.Categories.createRoute(),
         icon = R.drawable.ic_category,
         filledIcon = R.drawable.ic_category_selected
     ),

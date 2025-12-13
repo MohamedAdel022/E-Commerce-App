@@ -3,13 +3,17 @@ package com.route.e_commerce.navigation
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.route.e_commerce.screens.account.AccountScreen
 import com.route.e_commerce.screens.categories.CategoriesScreen
+import com.route.e_commerce.screens.categories.CategoriesViewModel
 import com.route.e_commerce.screens.home.HomeScreen
 import com.route.e_commerce.screens.home.HomeViewModel
 import com.route.e_commerce.screens.login.LoginScreen
@@ -66,6 +70,13 @@ fun MainNavHost(modifier: Modifier = Modifier, navController: NavHostController)
         }
         composable(
             route = BottomRoutes.Categories.route,
+            arguments = listOf(
+                navArgument("selectedId") { // Fixed: was "categoryId", should match route param
+                    type = NavType.StringType
+                    nullable = true
+                    defaultValue = null
+                }
+            ),
             enterTransition = {
                 slideIntoContainer(
                     towards = AnimatedContentTransitionScope.SlideDirection.Left,
@@ -78,9 +89,23 @@ fun MainNavHost(modifier: Modifier = Modifier, navController: NavHostController)
                     animationSpec = tween(300)
                 )
             }
-        ){
-            val sharedViewModel: HomeViewModel = hiltViewModel(navController.getBackStackEntry(navController.graph.id))
-            CategoriesScreen(modifier = modifier,viewModel = sharedViewModel)
+        ) { backStackEntry ->
+// Get the parent nav graph entry
+            val parentEntry = remember(backStackEntry) {
+                navController.getBackStackEntry(navController.graph.id)
+            }
+
+            val sharedViewModel: HomeViewModel = hiltViewModel(parentEntry)
+            val selectedCategoryId = backStackEntry.arguments?.getString("selectedId")
+            val categoriesViewModel: CategoriesViewModel =
+                hiltViewModel(parentEntry)
+
+            CategoriesScreen(
+                modifier = modifier,
+                homeViewModel = sharedViewModel,
+                categoriesViewModel = categoriesViewModel,
+                selectedCategoryId = selectedCategoryId
+            )
         }
         composable(
             route = BottomRoutes.WishList.route,
