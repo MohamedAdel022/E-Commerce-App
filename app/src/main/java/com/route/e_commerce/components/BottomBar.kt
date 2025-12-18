@@ -23,26 +23,26 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.route.e_commerce.navigation.BottomRoutes
+import com.route.e_commerce.navigation.Graphs
 import com.route.e_commerce.navigation.bottomNavItems
 
 @Composable
-fun BottomBar(modifier: Modifier = Modifier, navController: NavHostController) {
+fun BottomBar(
+    modifier: Modifier = Modifier,
+    navController: NavHostController
+) {
     val scheme = MaterialTheme.colorScheme
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry?.destination?.route
+    val currentDestination = navBackStackEntry?.destination
 
     Surface(
         color = scheme.primary,
-        shape = RoundedCornerShape(
-            topStart = 15.dp,
-            topEnd = 15.dp,
-            bottomStart = 15.dp,
-            bottomEnd = 15.dp
-        ),
-        modifier = Modifier
+        shape = RoundedCornerShape(15.dp),
+        modifier = modifier
             .fillMaxWidth()
             .height(70.dp)
     ) {
@@ -51,8 +51,18 @@ fun BottomBar(modifier: Modifier = Modifier, navController: NavHostController) {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
+
             bottomNavItems.forEach { item ->
-                val selected = currentDestination?.startsWith(item.route.substringBefore("?")) == true
+
+                val selected = when (item.route) {
+                    BottomRoutes.Categories.createRoute() ->
+                        currentDestination?.hierarchy
+                            ?.any { it.route == Graphs.CATEGORIES } == true
+
+                    else ->
+                        currentDestination?.hierarchy
+                            ?.any { it.route == item.route } == true
+                }
 
                 Box(
                     modifier = Modifier
@@ -63,8 +73,11 @@ fun BottomBar(modifier: Modifier = Modifier, navController: NavHostController) {
                             onClick = {
                                 if (!selected) {
                                     navController.navigate(item.route) {
-                                        popUpTo(BottomRoutes.Home.route) { inclusive = false }
                                         launchSingleTop = true
+                                        popUpTo(BottomRoutes.Home.route) {
+                                            saveState = true
+                                        }
+                                        restoreState = true
                                     }
                                 }
                             },
@@ -74,7 +87,9 @@ fun BottomBar(modifier: Modifier = Modifier, navController: NavHostController) {
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
-                        painter = painterResource(id = if (selected) item.filledIcon else item.icon),
+                        painter = painterResource(
+                            id = if (selected) item.filledIcon else item.icon
+                        ),
                         contentDescription = item.label,
                         tint = if (selected) scheme.primary else Color.White,
                         modifier = Modifier.size(24.dp)

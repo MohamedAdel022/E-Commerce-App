@@ -1,0 +1,13 @@
+package com.route.e_commerce.screens.product
+
+import androidx.compose.foundation.layout.Column
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+
+@Composable
+fun ProductScreen(modifier: Modifier = Modifier) {
+    Column(modifier = modifier) {
+
+    }
+
+}

@@ -20,7 +20,8 @@ class CategoriesContract {
     }
     sealed interface Intent {
         data object LoadSubCategories : Intent
-        data class SubCategoryClicked(val categoryId: String) : Intent
+        data class CategoryClicked(val categoryId: String) : Intent
+        data class SubCategoryClicked(val subCategory: CategoryDataEntity) : Intent
     }
     sealed interface ApiState<out T> {
         data object Idle : ApiState<Nothing>

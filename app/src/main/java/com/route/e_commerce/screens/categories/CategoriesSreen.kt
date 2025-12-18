@@ -20,20 +20,21 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import com.route.e_commerce.navigation.Routes
 import com.route.e_commerce.screens.categories.components.CategoriesListSection
 import com.route.e_commerce.screens.categories.components.SubCategoriesSection
 import com.route.e_commerce.screens.home.HomeViewModel
+
 
 @Composable
 fun CategoriesScreen(
     modifier: Modifier,
     homeViewModel: HomeViewModel = hiltViewModel(),
     categoriesViewModel: CategoriesViewModel = hiltViewModel(),
-    selectedCategoryId: String?
+    navController: NavHostController
 ) {
-    LaunchedEffect(Unit) {
-        Log.d("CategoriesScreen", "selectedCategoryId: $selectedCategoryId")
-    }
+    ObserveEvents(categoriesViewModel, navController)
     Row(
         modifier = modifier
             .fillMaxSize()
@@ -51,9 +52,23 @@ fun CategoriesScreen(
         SubCategoriesSection(
             modifier = Modifier
                 .weight(.65f)
-                .fillMaxHeight()
+                .fillMaxHeight(), viewmodel = categoriesViewModel
         )
     }
+}
+
+@Composable
+fun ObserveEvents(viewModel: CategoriesViewModel, navController: NavHostController) {
+    LaunchedEffect(Unit) {
+        viewModel.events.collect { event ->
+            when (event) {
+                is CategoriesContract.Event.NavigateToProductScreen -> {
+                    navController.navigate(Routes.Product.route)
+                }
+            }
+        }
+    }
+
 }
 
 @Composable

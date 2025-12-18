@@ -10,6 +10,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
 import com.route.e_commerce.screens.account.AccountScreen
 import com.route.e_commerce.screens.categories.CategoriesScreen
@@ -18,6 +19,7 @@ import com.route.e_commerce.screens.home.HomeScreen
 import com.route.e_commerce.screens.home.HomeViewModel
 import com.route.e_commerce.screens.login.LoginScreen
 import com.route.e_commerce.screens.main.MainScreen
+import com.route.e_commerce.screens.product.ProductScreen
 import com.route.e_commerce.screens.register.RegisterScreen
 import com.route.e_commerce.screens.splash.SplashScreen
 import com.route.e_commerce.screens.wish_list.WishListScreen
@@ -64,48 +66,49 @@ fun MainNavHost(modifier: Modifier = Modifier, navController: NavHostController)
                     animationSpec = tween(300)
                 )
             }
-        ){
-            val sharedViewModel: HomeViewModel = hiltViewModel(navController.getBackStackEntry(navController.graph.id))
-            HomeScreen(modifier=modifier, viewModel = sharedViewModel, navController=navController)
-        }
-        composable(
-            route = BottomRoutes.Categories.route,
-            arguments = listOf(
-                navArgument("selectedId") { // Fixed: was "categoryId", should match route param
-                    type = NavType.StringType
-                    nullable = true
-                    defaultValue = null
-                }
-            ),
-            enterTransition = {
-                slideIntoContainer(
-                    towards = AnimatedContentTransitionScope.SlideDirection.Left,
-                    animationSpec = tween(300)
-                )
-            },
-            exitTransition = {
-                slideOutOfContainer(
-                    towards = AnimatedContentTransitionScope.SlideDirection.Right,
-                    animationSpec = tween(300)
-                )
-            }
-        ) { backStackEntry ->
-// Get the parent nav graph entry
+        ){backStackEntry->
             val parentEntry = remember(backStackEntry) {
                 navController.getBackStackEntry(navController.graph.id)
             }
 
             val sharedViewModel: HomeViewModel = hiltViewModel(parentEntry)
-            val selectedCategoryId = backStackEntry.arguments?.getString("selectedId")
-            val categoriesViewModel: CategoriesViewModel =
-                hiltViewModel(parentEntry)
+            HomeScreen(modifier=modifier, viewModel = sharedViewModel, navController=navController)
+        }
+        navigation(
+            route = Graphs.CATEGORIES,
+            startDestination = BottomRoutes.Categories.route
+        ) {
 
-            CategoriesScreen(
-                modifier = modifier,
-                homeViewModel = sharedViewModel,
-                categoriesViewModel = categoriesViewModel,
-                selectedCategoryId = selectedCategoryId
-            )
+            composable(
+                route = BottomRoutes.Categories.route,
+                arguments = listOf(
+                    navArgument("selectedId") {
+                        type = NavType.StringType
+                        nullable = true
+                        defaultValue = null
+                    }
+                )
+            ) { backStackEntry ->
+
+                val parentEntry = remember(backStackEntry) {
+                    navController.getBackStackEntry(navController.graph.id)
+                }
+
+                val homeViewModel: HomeViewModel = hiltViewModel(parentEntry)
+                val categoriesViewModel: CategoriesViewModel =
+                    hiltViewModel(parentEntry)
+
+                CategoriesScreen(
+                    modifier = modifier,
+                    homeViewModel = homeViewModel,
+                    categoriesViewModel = categoriesViewModel,
+                    navController = navController
+                )
+            }
+
+            composable(Routes.Product.route) {
+                ProductScreen()
+            }
         }
         composable(
             route = BottomRoutes.WishList.route,

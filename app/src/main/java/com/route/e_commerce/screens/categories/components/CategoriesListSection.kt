@@ -47,7 +47,7 @@ fun CategoriesListSection(
                 selectedCategoryId = selectedCategoryId,
                 onItemClick = { category ->
                     categoriesViewModel.handleIntent(
-                        CategoriesContract.Intent.SubCategoryClicked(category.id!!)
+                        CategoriesContract.Intent.CategoryClicked(category.id!!)
                     )
                     onCategoryClick(category)
                 }

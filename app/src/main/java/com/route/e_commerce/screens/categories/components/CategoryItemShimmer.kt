@@ -16,8 +16,9 @@ import com.route.e_commerce.components.shimmerEffect
 
 @Composable
 fun CategoryItemShimmer(
+    modifier: Modifier = Modifier,
     isSelected: Boolean = false,
-    modifier: Modifier = Modifier
+
 ) {
     Row(
         modifier = modifier

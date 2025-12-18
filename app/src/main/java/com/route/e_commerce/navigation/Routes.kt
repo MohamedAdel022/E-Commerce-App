@@ -13,6 +13,8 @@ sealed class Routes(val route: String) {
 
     @Serializable
     object Main : Routes("main_screen")
+    @Serializable
+    object Product : Routes("product_screen")
 
 }
 @Serializable
